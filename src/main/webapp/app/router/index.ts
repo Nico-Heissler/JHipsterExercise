@@ -8,6 +8,8 @@ Component.registerHooks([
 import Router from 'vue-router';
 
 const Home = () => import('@/core/home/home.vue');
+const LoginServlet = () => import('@/core/loginServlet/loginServlet.vue')
+const Adyen = () => import('@/core/adyen/adyen.vue')
 const Error = () => import('@/core/error/error.vue');
 import account from '@/router/account';
 import admin from '@/router/admin';
@@ -25,6 +27,17 @@ export default new Router({
       name: 'Home',
       component: Home
     },
+    {
+      path: '/adyen',
+      name: 'adyen',
+      component: Adyen
+    },
+    {
+      path: '/loginServlet',
+      name: 'loginServlet',
+      component: LoginServlet
+    },
+    
     {
       path: '/forbidden',
       name: 'Forbidden',

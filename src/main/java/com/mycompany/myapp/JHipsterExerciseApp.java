@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
+
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +69,7 @@ public class JHipsterExerciseApp {
         SpringApplication app = new SpringApplication(JHipsterExerciseApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
-        logApplicationStartup(env);
+        logApplicationStartup(env);             
     }
 
     private static void logApplicationStartup(Environment env) {
