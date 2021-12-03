@@ -83,7 +83,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
-        http
+        http.authorizeRequests()
+        .antMatchers("/api/authenticate").permitAll()
+        .antMatchers("/api/register").permitAll()
+        .antMatchers("/api/activate").permitAll()
+        .antMatchers("/api/account/reset-password/init").permitAll()
+        .antMatchers("/api/account/reset-password/finish").permitAll()
+        .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
+        .antMatchers("/api/**").authenticated()
+        .antMatchers("/management/health").permitAll()
+        .antMatchers("/management/health/**").permitAll()
+        .antMatchers("/management/info").permitAll()
+        .antMatchers("/management/prometheus").permitAll()
+        .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
+        .antMatchers("/oauth_login", "/loginFailure", "/")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .oauth2Login()
+        .loginPage("/oauth_login")
+        .authorizationEndpoint()
+        .baseUri("/oauth2/authorize-client")
+        .authorizationRequestRepository(authorizationRequestRepository())
+        .and()
+        .tokenEndpoint()
+        .accessTokenResponseClient(accessTokenResponseClient())
+        .and()
+        .defaultSuccessUrl("/loginSuccess")
+        .failureUrl("/loginFailure").and()
             .csrf()
             .disable()
             .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
@@ -100,43 +128,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
             .frameOptions()
             .deny()
-        .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-            .authorizeRequests()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/account/reset-password/init").permitAll()
-            .antMatchers("/api/account/reset-password/finish").permitAll()
-            .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/**").authenticated()
-            .antMatchers("/management/health").permitAll()
-            .antMatchers("/management/health/**").permitAll()
-            .antMatchers("/management/info").permitAll()
-            .antMatchers("/management/prometheus").permitAll()
-            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/oauth_login", "/loginFailure", "/").permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .oauth2Login()
-            .loginPage("/oauth_login")
-            .authorizationEndpoint()
-            .baseUri("/oauth2/authorize-client")
-            .authorizationRequestRepository(authorizationRequestRepository())
-            .and()
-            .tokenEndpoint()
-            .accessTokenResponseClient(accessTokenResponseClient())
-            .and()
-            .defaultSuccessUrl("/loginSuccess")
-            .failureUrl("/loginFailure")
+//        .and()
+//            .sessionManagement()
+//            .sessionCreationPolicy(SessionCreationPolicy.STATELESS); 
+//        .and()
+//            .authorizeRequests()
+//            .antMatchers("/api/authenticate").permitAll()
+//            .antMatchers("/api/register").permitAll()
+//            .antMatchers("/api/activate").permitAll()
+//            .antMatchers("/api/account/reset-password/init").permitAll()
+//            .antMatchers("/api/account/reset-password/finish").permitAll()
+//            .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
+//            .antMatchers("/api/**").authenticated()
+//            .antMatchers("/management/health").permitAll()
+//            .antMatchers("/management/health/**").permitAll()
+//            .antMatchers("/management/info").permitAll()
+//            .antMatchers("/management/prometheus").permitAll()
+//            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
+
         .and()
             .httpBasic()
         .and()
             .apply(securityConfigurerAdapter());
-        // @formatter:on
+        //        // @formatter:on
+
     }
 
     private JWTConfigurer securityConfigurerAdapter() {
@@ -154,7 +169,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return accessTokenResponseClient;
     }
 
-    // additional configuration for non-Spring Boot projects
     private static List<String> clients = Arrays.asList("google", "facebook");
 
     //    @Bean

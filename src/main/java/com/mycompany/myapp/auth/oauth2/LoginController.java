@@ -47,6 +47,11 @@ public class LoginController {
         return "oauth_login";
     }
 
+    @GetMapping("/loginFailure")
+    public String getLoginFailure(Model model) {
+        return "loginFailure";
+    }
+
     @GetMapping("/loginSuccess")
     public String getLoginInfo(Model model, OAuth2AuthenticationToken authentication) {
         OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
