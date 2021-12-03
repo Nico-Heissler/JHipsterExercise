@@ -6,7 +6,7 @@ paypal
         purchase_units: [
           {
             amount: {
-              value: '300000',
+              value: '59.97',
             },
           },
         ],
@@ -20,5 +20,11 @@ paypal
         window.location.replace('http://localhost:8080/');
       });
     },
+    style: {
+      layout: 'vertical',
+      color:  'black',
+      shape:  'pill',
+      label:  'paypal'
+    }
   })
   .render('#paypal-button-container');
