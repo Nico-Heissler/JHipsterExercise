@@ -2,26 +2,26 @@
   <div >
 
     <div class="img_banniere">
-        <img src="/content/images/home/Noel_banniere.png" />
+        <img src="/content/images/home/Noel_banniere.jpg" />
     </div>
     <div> 
-      <p class="customfont" style="text-align: center; font-size:100px;"> Un Noel pour tous</p>      
+      <p class="customfont" v-text="$t('welcomeMessage')" style="text-align: center; font-size:100px;"> Un Noel pour tous</p>      
     </div>
 
     <div class="separate-3_nav"> 
 
-      <div class="category"  v-on:click="goProduct('/list_produit?cat=enfant')">
-          <img class="img_category" src="/content/images/home/Enfant.png"/>
-          <p class="centered customfont text_category" > Enfant </p>
+      <div class="category"  v-on:click="goProduct('/list_produit?cat=High-Tech')">
+          <img class="img_category" src="/content/images/home/HighTech.png"/>
+          <p v-text="$t('highTech')" class="centered customfont text_category" > High Tech </p>
       </div>
-      <div class="category"  v-on:click="goProduct('/list_produit?cat=adulte')">
-          <img class="img_category" src="/content/images/home/Adulte.png"/>
-          <p class="centered customfont text_category" > Adulte </p>
+      <div class="category"  v-on:click="goProduct('/list_produit?cat=Vetements')">
+          <img class="img_category" src="/content/images/home/Vetement.png"/>
+          <p v-text="$t('vetement')" class="centered customfont text_category" > Vetement </p>
       </div>
 
-      <div class="category"  v-on:click="goProduct('/list_produit?cat=alcool')">
-          <img class="img_category" src="/content/images/home/BonVivant.png"/>          
-          <p class="centered customfont text_category" > Bon vivant </p>
+      <div class="category"  v-on:click="goProduct('/list_produit?cat=Transport')">
+          <img class="img_category" src="/content/images/home/Transport.png"/>          
+          <p v-text="$t('transport')" class="centered customfont text_category" > Transport </p>
       </div>
          
     </div>
